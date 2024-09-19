@@ -1,5 +1,3 @@
----
-
 ## Instalación de .NET en Arch Linux
 
 Para desarrollar y trabajar con C# y .NET en Arch Linux, necesitarás instalar los siguientes tres paquetes:
@@ -10,7 +8,6 @@ sudo pacman -S dotnet-runtime    # Runtime de .NET para ejecutar aplicaciones
 sudo pacman -S aspnet-runtime    # Runtime de ASP.NET Core para aplicaciones web/API
 ```
 
----
 
 ## Instalación de SQL Server en Linux mediante Docker
 

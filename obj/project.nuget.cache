@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "C3iUXMiH0bUNkMutCu4dMl3FF1JTcaQAnR06qZ6eS2biXq5xBGeDDUKKM6BM+uIlmjuXsggFG9nxKnFJ1ikBPQ==",
+  "success": true,
+  "projectFilePath": "/home/arcan31/Desktop/projects/contactsNETlearn/contactsNETlearn.csproj",
+  "expectedPackageFiles": [
+    "/home/arcan31/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.8/microsoft.aspnetcore.app.ref.8.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

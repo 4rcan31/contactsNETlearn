@@ -50,4 +50,37 @@ dotnet watch run
 
 Con **Entity Framework**, puedes mapear automáticamente las tablas de la base de datos a modelos en tu aplicación, lo que te ahorrará tiempo al no tener que escribir los modelos manualmente.
 
+
+Para desgarlo puedes hacer
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+``` 
+Para poder generar los modelos a partir de la base de datos, también necesitarás las herramientas de Entity Framework Core:
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+```
+
+Si estás usando Migrations (migraciones), también es recomendable agregar este paquete:
+```bash
+dotnet add package Microsoft.EntityFrameworkCore.Design
+```
+
+Para poder mapear los mo    delos desde las tablas de la base, puedes hacer esto:
+
+```bash
+    dotnet ef dbcontext scaffold "Server=localhost;Database=api_cs_test;User Id=sa;Password=<YourPassword>;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer --output-dir Models
+```
+
+pero para tener disponible este comando debes de descargar y configurar estos dos comandos:
+
+```bash 
+dotnet new tool-manifest
+```
+
+Y instalar dotnet-ef        
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+
 ---

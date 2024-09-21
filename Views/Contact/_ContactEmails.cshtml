@@ -1,0 +1,14 @@
+@model contactsNETlearn.Models.Contact
+
+@foreach (var email in Model.Emails)
+{
+    <div class="card shadow-sm mb-2">
+        <div class="card-body">
+            <p>Correo: @email.Email1 (@email.EmailType)</p>
+            <div>
+                <button class="btn btn-warning btn-sm me-2">Editar</button>
+                <button class="btn btn-danger btn-sm">Eliminar</button>
+            </div>
+        </div>
+    </div>
+}

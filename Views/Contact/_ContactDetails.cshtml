@@ -1,0 +1,11 @@
+@model contactsNETlearn.Models.Contact
+
+<h5>Direcciones:</h5>
+@Html.Partial("_ContactAddresses", Model)
+
+<h5>Correos:</h5>
+@Html.Partial("_ContactEmails", Model)
+
+<h5>Teléfonos:</h5>
+@Html.Partial("_ContactPhones", Model)
+    

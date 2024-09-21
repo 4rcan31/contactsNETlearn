@@ -1,0 +1,676 @@
+@model IEnumerable<contactsNETlearn.Models.Contact>
+
+@{
+    ViewData["Title"] = "Lista de Contactos";
+}
+
+
+<div class="container mt-5">
+    <h1 class="text-center">Lista de Contactos</h1>
+
+    <div class="text-center mb-4">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContactModal">Agregar Nuevo Contacto</button>
+    </div>
+
+    <div class="row justify-content-center">
+        @foreach (var contact in Model)
+        {   
+            
+
+            <div class="col-md-8 mb-4">
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="card-title">@contact.FirstName @contact.LastName</h5>
+            <p class="card-text">
+                <strong>Teléfono:</strong> @contact.Phones.FirstOrDefault()?.PhoneNumber
+                <br />
+                <strong>Email:</strong> @contact.Emails.FirstOrDefault()?.Email1
+            </p>
+
+                <div class="d-flex justify-content-start mt-3">
+    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addressesModal-@contact.ContactId">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-highlighter" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.096.644a2 2 0 0 1 2.791.036l1.433 1.433a2 2 0 0 1 .035 2.791l-.413.435-8.07 8.995a.5.5 0 0 1-.372.166h-3a.5.5 0 0 1-.234-.058l-.412.412A.5.5 0 0 1 2.5 15h-2a.5.5 0 0 1-.354-.854l1.412-1.412A.5.5 0 0 1 1.5 12.5v-3a.5.5 0 0 1 .166-.372l8.995-8.07zm-.115 1.47L2.727 9.52l3.753 3.753 7.406-8.254zm3.585 2.17.064-.068a1 1 0 0 0-.017-1.396L13.18 1.387a1 1 0 0 0-1.396-.018l-.068.065zM5.293 13.5 2.5 10.707v1.586L3.707 13.5z"/>
+        </svg>
+        <span class="tooltip">Direcciones</span>
+    </button>
+    <button class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#emailsModal-@contact.ContactId">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+        </svg>
+        <span class="tooltip">Correos</span>
+    </button>
+    <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#phonesModal-@contact.ContactId">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+            <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+        </svg>
+        <span class="tooltip">Teléfonos</span>
+    </button>
+    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#detailsModal-@contact.ContactId">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+        </svg>
+        <span class="tooltip">Detalles</span>
+    </button>
+
+         <button class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#deleteModal-@contact.ContactId" title="Eliminar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+</svg>
+        <span class="tooltip">Eilminar</span>
+    </button>
+    
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+  <!-- Modal para eiminar Contactos -->
+<div class="modal fade" id="deleteModal-@contact.ContactId" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Eliminar Contacto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro que deseas eliminar a <strong>@contact.FirstName @contact.LastName</strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                
+                <!-- Formulario para eliminar contacto -->  
+               <form action="/Contact/Delete" method="POST" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@contact.ContactId" />
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal para Direcciones -->
+<div class="modal fade" id="addressesModal-@contact.ContactId" tabindex="-1" aria-labelledby="addressesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Direcciones de @contact.FirstName @contact.LastName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addAddressModal-@contact.ContactId">Crear Dirección</button>
+
+                @foreach (var address in contact.Addresses)
+                {
+                    <div class="card shadow mb-3">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><strong>Dirección:</strong> @address.Street, @address.City, @address.State, @address.PostalCode, @address.Country</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editAddressModal-@address.AddressId">Editar</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAddressModal-@address.AddressId">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para Editar Dirección -->
+                    <div class="modal fade" id="editAddressModal-@address.AddressId" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editar Dirección</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                   <form action="/Address/Edit" method="POST">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="AddressId" value="@address.AddressId" />
+    <input type="hidden" name="ContactId" value="@contact.ContactId" />
+    <div class="mb-3">
+        <label for="street" class="form-label">Calle</label>
+        <input type="text" class="form-control" id="street" name="Street" value="@address.Street" required>
+    </div>
+    <div class="mb-3">
+        <label for="city" class="form-label">Ciudad</label>
+        <input type="text" class="form-control" id="city" name="City" value="@address.City" required>
+    </div>
+    <div class="mb-3">
+        <label for="state" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="state" name="State" value="@address.State">
+    </div>
+    <div class="mb-3">
+        <label for="postalCode" class="form-label">Código Postal</label>
+        <input type="text" class="form-control" id="postalCode" name="PostalCode" value="@address.PostalCode">
+    </div>
+    <div class="mb-3">
+        <label for="country" class="form-label">País</label>
+        <input type="text" class="form-control" id="country" name="Country" value="@address.Country">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </div>
+</form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <!-- Modal para Eliminar Dirección -->
+                    <div class="modal fade" id="deleteAddressModal-@address.AddressId" tabindex="-1" aria-labelledby="deleteAddressModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar Dirección</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que quieres eliminar esta dirección?</p>
+                                    <p><strong>Dirección:</strong> @address.Street, @address.City, @address.State, @address.PostalCode, @address.Country</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="/Address/Delete/@address.AddressId">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="AddressId" value="@address.AddressId" />
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="modal fade" id="addAddressModal-@contact.ContactId" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Agregar Dirección</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/Address/Create">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ContactId" value="@contact.ContactId" />
+                                    <div class="mb-3">
+                                        <label for="street" class="form-label">Calle</label>
+                                        <input type="text" class="form-control" id="street" name="Street" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="city" class="form-label">Ciudad</label>
+                                        <input type="text" class="form-control" id="city" name="City" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="state" class="form-label">Estado</label>
+                                        <input type="text" class="form-control" id="state" name="State">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="postalCode" class="form-label">Código Postal</label>
+                                        <input type="text" class="form-control" id="postalCode" name="PostalCode">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="country" class="form-label">País</label>
+                                        <input type="text" class="form-control" id="country" name="Country">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Dirección</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal para Correos -->
+<div class="modal fade" id="emailsModal-@contact.ContactId" tabindex="-1" aria-labelledby="emailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Correos de @contact.FirstName @contact.LastName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addEmailModal-@contact.ContactId">Crear Correo</button>
+
+                @foreach (var email in contact.Emails)
+                {
+                    <div class="card shadow mb-3">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><strong>Email:</strong> @email.Email1 (@email.EmailType)</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editEmailModal-@email.EmailId">Editar</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteEmailModal-@email.EmailId">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para Editar Correo -->
+                    <div class="modal fade" id="editEmailModal-@email.EmailId" tabindex="-1" aria-labelledby="editEmailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editar Correo</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="/Email/Edit">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="EmailId" value="@email.EmailId" />
+                                        <input type="hidden" name="ContactId" value="@contact.ContactId" />
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="Email1" value="@email.Email1" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="emailType" class="form-label">Tipo de Email</label>
+                                            <input type="text" class="form-control" id="emailType" name="EmailType" value="@email.EmailType">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para Eliminar Correo -->
+                    <div class="modal fade" id="deleteEmailModal-@email.EmailId" tabindex="-1" aria-labelledby="deleteEmailModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar Correo</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que quieres eliminar este correo?</p>
+                                    <p><strong>Email:</strong> @email.Email1 (@email.EmailType)</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="/Email/Delete/@email.EmailId">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="EmailId" value="@email.EmailId" />
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="modal fade" id="addEmailModal-@contact.ContactId" tabindex="-1" aria-labelledby="addEmailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Agregar Correo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/Email/Create">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ContactId" value="@contact.ContactId" />
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="Email1" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="emailType" class="form-label">Tipo de Email</label>
+                                        <input type="text" class="form-control" id="emailType" name="EmailType">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Correo</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal para Teléfonos -->
+<div class="modal fade" id="phonesModal-@contact.ContactId" tabindex="-1" aria-labelledby="phonesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Teléfonos de @contact.FirstName @contact.LastName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addPhoneModal-@contact.ContactId">Crear Teléfono</button>
+
+                @foreach (var phone in contact.Phones)
+                {
+                    <div class="card shadow mb-3">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <p class="mb-0"><strong>Teléfono:</strong> @phone.PhoneNumber (@phone.PhoneType)</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editPhoneModal-@phone.PhoneId">Editar</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePhoneModal-@phone.PhoneId">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para Editar Teléfono -->
+                    <div class="modal fade" id="editPhoneModal-@phone.PhoneId" tabindex="-1" aria-labelledby="editPhoneModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editar Teléfono</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/Phone/Edit" method="POST">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="PhoneId" value="@phone.PhoneId" />
+                                        <input type="hidden" name="ContactId" value="@contact.ContactId" />
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">Número de Teléfono</label>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" value="@phone.PhoneNumber" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phoneType" class="form-label">Tipo de Teléfono</label>
+                                            <input type="text" class="form-control" id="phoneType" name="PhoneType" value="@phone.PhoneType">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal para Eliminar Teléfono -->
+                    <div class="modal fade" id="deletePhoneModal-@phone.PhoneId" tabindex="-1" aria-labelledby="deletePhoneModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Eliminar Teléfono</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que quieres eliminar este teléfono?</p>
+                                    <p><strong>Teléfono:</strong> @phone.PhoneNumber (@phone.PhoneType)</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" action="/Phone/Delete/@phone.PhoneId">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="PhoneId" value="@phone.PhoneId" />
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="modal fade" id="addPhoneModal-@contact.ContactId" tabindex="-1" aria-labelledby="addPhoneModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Agregar Teléfono</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/Phone/Create">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ContactId" value="@contact.ContactId" />
+                                    <div class="mb-3">
+                                        <label for="phoneNumber" class="form-label">Número de Teléfono</label>
+                                        <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phoneType" class="form-label">Tipo de Teléfono</label>
+                                        <input type="text" class="form-control" id="phoneType" name="PhoneType">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Teléfono</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Modal para Detalles -->
+            <div class="modal fade" id="detailsModal-@contact.ContactId" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Detalles de @contact.FirstName @contact.LastName</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Teléfono:</strong> @contact.Phones.FirstOrDefault()?.PhoneNumber</p>
+                            <p><strong>Email:</strong> @contact.Emails.FirstOrDefault()?.Email1</p>
+                            <p><strong>Direcciones:</strong></p>
+                            <ul>
+                                @foreach (var address in contact.Addresses)
+                                {
+                                    <li>@address.Street, @address.City, @address.State, @address.PostalCode, @address.Country</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal para agregar un nuevo contacto -->
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Contacto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addContactForm" method="POST" action="/Contact/CreateContact">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="firstName" name="FirstName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="lastName" name="LastName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="birthDate" name="BirthDate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notas</label>
+                        <textarea class="form-control" id="notes" name="Notes"></textarea>
+                    </div>
+                    <div id="phoneList"></div> <!-- Aquí se agregarán los teléfonos -->
+                    <button type="button" class="btn btn-secondary" onclick="addPhone()">Agregar Teléfono</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Contacto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let phoneCount = 0;
+
+    function addPhone() {
+        const phoneList = document.getElementById('phoneList');
+        const newPhoneInput = document.createElement('div');
+        newPhoneInput.classList.add('input-group', 'mb-2');
+        newPhoneInput.innerHTML = `
+        <input type="text" class="form-control" name="Phones[${phoneCount}].PhoneNumber" placeholder="Número de Teléfono" required>
+        <input type="text" class="form-control" name="Phones[${phoneCount}].PhoneType" placeholder="Tipo de Teléfono (opcional)">
+        <button class="btn btn-danger" type="button" onclick="removePhone(this)">Eliminar</button>
+    `;
+        phoneList.appendChild(newPhoneInput);
+        phoneCount++;
+    }
+
+    function removePhone(button) {
+        const phoneInput = button.parentElement;
+        phoneInput.remove();
+    }
+</script>
+
+

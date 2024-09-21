@@ -1,0 +1,15 @@
+@model contactsNETlearn.Models.Contact
+
+@foreach (var address in Model.Addresses)
+{
+    <div class="card shadow-sm mb-2">
+        <div class="card-body">
+            <p>Dirección: @address.Street, @address.City, @address.State, @address.Country</p>
+            <p>Código Postal: @address.PostalCode</p>
+            <div>
+                <button class="btn btn-warning btn-sm me-2">Editar</button>
+                <button class="btn btn-danger btn-sm">Eliminar</button>
+            </div>
+        </div>
+    </div>
+}

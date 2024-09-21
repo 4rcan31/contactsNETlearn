@@ -32,7 +32,7 @@ public partial class ApiCsTestContext : DbContext
     {
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Addresse__091C2A1B3D7D6D0C");
+            entity.HasKey(e => e.AddressId).HasName("PK__Addresse__091C2A1B095ECE98");
 
             entity.Property(e => e.AddressId).HasColumnName("AddressID");
             entity.Property(e => e.City).HasMaxLength(100);
@@ -44,12 +44,13 @@ public partial class ApiCsTestContext : DbContext
 
             entity.HasOne(d => d.Contact).WithMany(p => p.Addresses)
                 .HasForeignKey(d => d.ContactId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Addresses__Conta__403A8C7D");
         });
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity.HasKey(e => e.ContactId).HasName("PK__Contacts__5C6625BBCD34B5D8");
+            entity.HasKey(e => e.ContactId).HasName("PK__Contacts__5C6625BB8AFD277A");
 
             entity.Property(e => e.ContactId).HasColumnName("ContactID");
             entity.Property(e => e.CreatedAt)
@@ -63,15 +64,13 @@ public partial class ApiCsTestContext : DbContext
                     "ContactGroup",
                     r => r.HasOne<Group>().WithMany()
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__ContactGr__Group__45F365D3"),
                     l => l.HasOne<Contact>().WithMany()
                         .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK__ContactGr__Conta__44FF419A"),
                     j =>
                     {
-                        j.HasKey("ContactId", "GroupId").HasName("PK__ContactG__ED2F8A8B58F4982E");
+                        j.HasKey("ContactId", "GroupId").HasName("PK__ContactG__ED2F8A8B6C74730D");
                         j.ToTable("ContactGroups");
                         j.IndexerProperty<int>("ContactId").HasColumnName("ContactID");
                         j.IndexerProperty<int>("GroupId").HasColumnName("GroupID");
@@ -80,7 +79,7 @@ public partial class ApiCsTestContext : DbContext
 
         modelBuilder.Entity<Email>(entity =>
         {
-            entity.HasKey(e => e.EmailId).HasName("PK__Emails__7ED91AEF3F6521C6");
+            entity.HasKey(e => e.EmailId).HasName("PK__Emails__7ED91AEFB4318814");
 
             entity.Property(e => e.EmailId).HasColumnName("EmailID");
             entity.Property(e => e.ContactId).HasColumnName("ContactID");
@@ -91,12 +90,13 @@ public partial class ApiCsTestContext : DbContext
 
             entity.HasOne(d => d.Contact).WithMany(p => p.Emails)
                 .HasForeignKey(d => d.ContactId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Emails__ContactI__3D5E1FD2");
         });
 
         modelBuilder.Entity<Group>(entity =>
         {
-            entity.HasKey(e => e.GroupId).HasName("PK__Groups__149AF30A0C4B8CA5");
+            entity.HasKey(e => e.GroupId).HasName("PK__Groups__149AF30AFD4137A4");
 
             entity.Property(e => e.GroupId).HasColumnName("GroupID");
             entity.Property(e => e.GroupName).HasMaxLength(100);
@@ -104,7 +104,7 @@ public partial class ApiCsTestContext : DbContext
 
         modelBuilder.Entity<Phone>(entity =>
         {
-            entity.HasKey(e => e.PhoneId).HasName("PK__Phones__F3EE4BD0C590878A");
+            entity.HasKey(e => e.PhoneId).HasName("PK__Phones__F3EE4BD065061CFA");
 
             entity.Property(e => e.PhoneId).HasColumnName("PhoneID");
             entity.Property(e => e.ContactId).HasColumnName("ContactID");
@@ -113,6 +113,7 @@ public partial class ApiCsTestContext : DbContext
 
             entity.HasOne(d => d.Contact).WithMany(p => p.Phones)
                 .HasForeignKey(d => d.ContactId)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK__Phones__ContactI__3A81B327");
         });
 

@@ -46,3 +46,27 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.btn {
+  position: relative;
+}
+
+.btn:hover .tooltip {
+  display: block;
+  top: 100%; /* Mueve el tooltip hacia abajo */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
